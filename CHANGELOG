@@ -1,4 +1,5 @@
 v0.3
+2013-12-29
 
 Most notably, the project was moved from SourceForge to GitHub.
 
@@ -11,8 +12,11 @@ Updated the install script to remove old cronjobs from previous installs. This
 should resolve the issue of multiple cronjobs being setup for each time ABS has
 been installed/updated.
 
+Switched scripts to using /bin/sh instead of /bin/bash for greater portability.
+
 ################################################################################
 v0.2
+2013-05-04
 
 Removed backup.exclude.
 I plan on adding a check to use backup.exclude if the users adds one. I did so
@@ -31,6 +35,7 @@ doing so will remove parts of your file system (everything listed in
 
 ################################################################################
 v0.1.1:
+2013-04-27
 
 A few fixes including correcting a spelling mistake in the README, syntax
 error in install.sh, and improper spelling of 'backup.exclude' in backup.conf.
@@ -43,5 +48,6 @@ will use that, otherwise it will default to 'backup-yymmdd'.
 
 ################################################################################
 Initial Release:
+2013-04-21
 
 First release of A Backup System (ABS).
