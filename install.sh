@@ -92,7 +92,7 @@ fi;
 
 # Add tools to root's crontab
 $ECHO "Removing any old cronjobs for ABS"
-$CRONTAB -l | sed '/backup_/d' | $CRONTAB -;
+$CRONTAB -l | $SED '/backup_/d' | $CRONTAB -;
 
 $ECHO "Adding cronjobs";
 ($CRONTAB -l; $ECHO "$CRONJOB_DAILY") | $CRONTAB -;
