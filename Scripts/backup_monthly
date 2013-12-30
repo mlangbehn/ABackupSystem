@@ -1,0 +1,45 @@
+#! /bin/bash
+
+################################################################################
+#                                                                              #
+#                       Simple weekly Backup Script                            #
+#                                                                              #
+################################################################################
+
+#---------------------------- Read Conf File ---------------------------------#
+source /etc/backup/backup.conf
+
+#----------------------------- Backup Name -----------------------------------#
+BACKUP_THIS_MONTH=Monthly-$(( $($DATE +%m) -1 ))-$($DATE -d "last month" +%B);
+BACKUP_LAST_YEAR=*-$(( $($DATE +%m) -1 ))*;
+BACKUP_YESTERDAY=*$($DATE -d "yesterday" +%A);
+
+#---------------------------- Body of Script ---------------------------------#
+
+# Ensure user is root
+if (( `$ID -u` != 0 )); then
+    $ECHO "$0 must be run as root.";
+    exit;
+fi;
+
+# Remove year-old backup, if one exists
+if [ -d $MOUNT_POINT/$BACKUP_LAST_YEAR ] ; then
+    $RM -rf $MOUNT_POINT/$BACKUP_LAST_YEAR ;
+fi;
+
+# Create directory for backup
+$MKDIR $MOUNT_POINT/$BACKUP_THIS_MONTH ;
+
+# Make a hard-link to the last day of the month's backup, if one exists
+# If no backup for the last day of the month  exists, rsync the system
+# to this month's backup
+if [ -d $MOUNT_POINT/$BACKUP_YESTERDAY ] ; then
+    $CP -al $MOUNT_POINT/$BACKUP_YESTERDAY/* $MOUNT_POINT/$BACKUP_THIS_MONTH ;
+else
+for i in $FILE_SYSTEMS
+do
+$RSYNC                                       \
+    -xav --delete                            \
+    $i $MOUNT_POINT/$BACKUP_THIS_MONTH ;
+done
+fi;

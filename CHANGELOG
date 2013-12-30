@@ -1,0 +1,47 @@
+v0.3
+
+Most notably, the project was moved from SourceForge to GitHub.
+
+Added Support for multiple file systems (i.e. if you have /, /var, /home, etc.
+or different partitions or drives). To configure ABS to backup your other file
+systems, add them to the FILE_SYSTEMS variable in /etc/backup/backup.conf --
+seperated by a single space.
+
+Updated the install script to remove old cronjobs from previous installs. This
+should resolve the issue of multiple cronjobs being setup for each time ABS has
+been installed/updated.
+
+################################################################################
+v0.2
+
+Removed backup.exclude.
+I plan on adding a check to use backup.exclude if the users adds one. I did so
+to resolve issues with restoring from a backup that had excluded part of the
+file system. As a result, backups will take a little longer, and take up more
+space. In order to do so, I changed the flags used by rsync. I removed both the
+'exclude-file' and 'delete-excluded' and added -x (making the used flags '-xav
+--delete').
+
+Added new script 'backup_restore'.
+Usage: 'backup_restore /path/to/backup/to/restore/from'
+Doing so will completely revert to the desired backup. Since previous versions
+used an exclude file, it is not recommended to choose one to restore from, as
+doing so will remove parts of your file system (everything listed in
+/etc/backup/backup.exclude).
+
+################################################################################
+v0.1.1:
+
+A few fixes including correcting a spelling mistake in the README, syntax
+error in install.sh, and improper spelling of 'backup.exclude' in backup.conf.
+Also added new command: backup_now
+
+backup_now is not added to crontab, but it can be called at any time to create
+a current snapshot (useful after initial setup and before/after configuration
+changes). If a backup name is given (i.e. backup_now thisIsMyBackupName) it
+will use that, otherwise it will default to 'backup-yymmdd'.
+
+################################################################################
+Initial Release:
+
+First release of A Backup System (ABS).

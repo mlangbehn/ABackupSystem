@@ -1,0 +1,36 @@
+#! /bin/bash
+
+################################################################################
+#                                                                              #
+#                            Simple Restore Script                             #
+#                                                                              #
+################################################################################
+
+#----------------------------- Read Conf File ---------------------------------#
+source /etc/backup/backup.conf
+
+#----------------------------- Restore From -----------------------------------#
+if [ $1 ]; then
+    RESTORE_FROM=$1;
+    if [ -d $RESTORE_FROM ]; then
+	$ECHO "Backup found at $RESTORE_FROM.";
+    else
+	$ECHO "ERROR: No backup found at $1";
+    fi;
+else
+    $ECHO "Usage: $0 /path/to/backup/to/restore/from";
+    exit;
+fi;
+
+#---------------------------- Body of Script ---------------------------------#
+
+# Ensure user is root
+if (( `$ID -u` != 0 )); then
+    $ECHO "$0 must be run as root.";
+    exit;
+fi;
+
+# rsync the system to the backup
+$RSYNC                                       \
+    -xav --delete                             \
+    $RESTORE_FROM /;
