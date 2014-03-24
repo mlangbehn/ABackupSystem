@@ -28,6 +28,5 @@ License
 
 The files in this repository are released under the BSD 3-Clause License (see included LICENSE file). If you did not receive a copy of the license with this work, it can befound at: http://mlangbehn.github.io/BSD-3-Clause.html
 
-Author: Matt Langbehn
+Author: Matt Langbehn  
 Contact: matthew.langbehn@gmail.com
-
