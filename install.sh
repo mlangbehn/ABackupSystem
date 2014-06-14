@@ -19,7 +19,7 @@ MV=/bin/mv;
 SED=/bin/sed;
 CRONTAB=/usr/bin/crontab;
 
-COMMANDS="id echo cp crontab mv rm mkdir rsync";
+COMMANDS="bash id echo cp crontab mv rm mkdir rsync";
 
 #------------------------- Revelvant Directories -----------------------------#
 INSTALL_DIRECTORY=/usr/sbin;
@@ -52,14 +52,14 @@ $ECHO "Checking for existing configuration directory...";
 if [ -d $CONF_DIRECTORY ]; then
     $ECHO "$CONF_DIRECTORY already exists.";
     if [ -f $CONF_DIRECTORY/backup.conf ]; then
-	$ECHO "Previous configuration file found.";
-	$ECHO "Backing it up.";
-	$MV -i $CONF_DIRECTORY/backup.conf $CONF_DIRECTORY/backup.conf.old;
+    $ECHO "Previous configuration file found.";
+    $ECHO "Backing it up.";
+    $MV -i $CONF_DIRECTORY/backup.conf $CONF_DIRECTORY/backup.conf.old;
     fi;
     if [ -f $CONF_DIRECTORY/backup.exclude ]; then
-	$ECHO "Previous excludes file found.";
-	$ECHO "Backing it up.";
-	$MV -i $CONF_DIRECTORY/backup.exclude $CONF_DIRECTORY/backup.exclude.old;
+    $ECHO "Previous excludes file found.";
+    $ECHO "Backing it up.";
+    $MV -i $CONF_DIRECTORY/backup.exclude $CONF_DIRECTORY/backup.exclude.old;
     fi;
 else
     $ECHO "None found, creating $CONF_DIRECTORY":
@@ -92,7 +92,10 @@ fi;
 
 # Add tools to root's crontab
 $ECHO "Removing any old cronjobs for ABS"
-$CRONTAB -l | $SED '/backup_/d' | $CRONTAB -;
+$CRONTAB -l | $SED '/backup_daily/d' | $CRONTAB -;
+$CRONTAB -l | $SED '/backup_weekly/d' | $CRONTAB -;
+$CRONTAB -l | $SED '/backup_monthly/d' | $CRONTAB -;
+$CRONTAB -l | $SED '/backup_yearly/d' | $CRONTAB -;
 
 $ECHO "Adding cronjobs";
 ($CRONTAB -l; $ECHO "$CRONJOB_DAILY") | $CRONTAB -;

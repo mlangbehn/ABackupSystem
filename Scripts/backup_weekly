@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 ################################################################################
 #                                                                              #
@@ -31,14 +31,14 @@ fi;
 $MKDIR $MOUNT_POINT/$BACKUP_THIS_WEEK ;
 
 # Make a hard-link to Sunday's backup, if one exists
-# If no backup for Sunday exists, rsync the system to this weeks's backup
+# If no backup for Sunday exists, rsync the system to this week's backup
 if [ -d $MOUNT_POINT/$BACKUP_SUNDAY ] ; then
     $CP -al $MOUNT_POINT/$BACKUP_SUNDAY/* $MOUNT_POINT/$BACKUP_THIS_WEEK ;
 else
-for i in $FILE_SYSTEMS
-do
-$RSYNC                                       \
-    -xav --delete                            \
-    $i $MOUNT_POINT/$BACKUP_THIS_WEEK ;
-done
+    for i in $FILE_SYSTEMS
+    do
+        $RSYNC                                       \
+            -xav --delete                            \
+            $i $MOUNT_POINT/$BACKUP_THIS_WEEK ;
+    done
 fi;

@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 ################################################################################
 #                                                                              #
@@ -13,9 +13,9 @@ source /etc/backup/backup.conf
 if [ $1 ]; then
     RESTORE_FROM=$1;
     if [ -d $RESTORE_FROM ]; then
-	$ECHO "Backup found at $RESTORE_FROM.";
+        $ECHO "Backup found at $RESTORE_FROM.";
     else
-	$ECHO "ERROR: No backup found at $1";
+        $ECHO "ERROR: No backup found at $1";
     fi;
 else
     $ECHO "Usage: $0 /path/to/backup/to/restore/from";
@@ -30,7 +30,7 @@ if (( `$ID -u` != 0 )); then
     exit;
 fi;
 
-# rsync the system to the backup
-$RSYNC                                       \
+# rsync the backup to the system
+$RSYNC                                        \
     -xav --delete                             \
     $RESTORE_FROM /;

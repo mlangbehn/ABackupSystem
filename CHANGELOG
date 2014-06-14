@@ -1,3 +1,10 @@
+v0.3.0.1
+2014-06-13
+
+Changed scripts back to using /bin/bash -- with the exception of install.sh --
+and added a check for bash in install.sh.
+
+################################################################################
 v0.3
 2013-12-29
 

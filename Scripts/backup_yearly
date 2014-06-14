@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 ################################################################################
 #                                                                              #
@@ -30,10 +30,10 @@ $MKDIR $MOUNT_POINT/$BACKUP_THIS_YEAR ;
 if [ -d $MOUNT_POINT/$BACKUP_YESTERDAY ] ; then
     $CP -al $MOUNT_POINT/$BACKUP_YESTERDAY/* $MOUNT_POINT/$BACKUP_THIS_YEAR ;
 else
-for i in $FILE_SYSTEMS
-do
-$RSYNC                                       \
-    -xav --delete                            \
-    $i $MOUNT_POINT/$BACKUP_THIS_YEAR ;
-done
+    for i in $FILE_SYSTEMS
+    do
+        $RSYNC                                       \
+            -xav --delete                            \
+            $i $MOUNT_POINT/$BACKUP_THIS_YEAR ;
+    done
 fi;
