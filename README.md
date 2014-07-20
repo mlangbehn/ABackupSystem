@@ -8,10 +8,14 @@ Prior to running install.sh, you may wish to edit the configuration files (found
 The install.sh script will setup default cronjobs (daily backup midnight, weekly backup at 3AM on Sunday, monthly backup at midnight on the first of every month, and a yearly backup on the 1st of January). If you do not wish to use these defaults, please edit the "crontab entries" section of the script. If you would prefer to manually add the cronjobs, please comment out the "Adding tools to root's crontab" section.
 
 To install the backup system, run install.sh as root by using either:
+```
 sudo ./install.sh
+```
 or:
+```
 su
 ./install.sh
+```
 
 A Note on Backups
 ====================
